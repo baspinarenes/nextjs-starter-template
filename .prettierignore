@@ -1,0 +1,6 @@
+.yarn
+.next
+.swc
+public
+dist
+node_modules

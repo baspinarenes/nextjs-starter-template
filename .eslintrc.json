@@ -1,3 +1,45 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "settings": {
+    "next": {
+      "rootDir": "./src"
+    }
+  },
+  "extends": ["next", "next/core-web-vitals", "eslint:recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "_" }]
+  },
+  "overrides": [
+    // For Jest/Testing Library
+    {
+      "files": [
+        "./src/**/__tests__/**/*.[jt]s?(x)",
+        "./src/**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "env": {
+        "jest/globals": true
+      },
+      "extends": ["plugin:testing-library/react", "plugin:jest/recommended"]
+    },
+    // For Cypress
+    {
+      "files": ["./cypress/**/*.cy.js"],
+      "plugins": ["cypress"],
+      "env": {
+        "cypress/globals": true
+      },
+      "extends": ["eslint:recommended"],
+      "rules": {
+        "cypress/no-assigning-return-values": "error",
+        "cypress/no-unnecessary-waiting": "error",
+        "cypress/assertion-before-screenshot": "warn",
+        "cypress/no-force": "warn",
+        "cypress/no-async-tests": "error",
+        "cypress/no-pause": "error"
+      }
+    }
+  ]
 }
